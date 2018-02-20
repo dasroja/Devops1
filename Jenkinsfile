@@ -7,16 +7,16 @@ pipeline {
     stages {
         stage ('Initialize') {  
             steps{
-                bat '''
-                echo "PATH = %PATH%"
-                echo "M2_HOME= %M2_HOME%"
-                '''
+                bat 'set M2_HOME=C:\devops\softwares\maven\apache-maven-3.5.2'
+                bat "set PATH =C:\devops\softwares\maven\apache-maven-3.3.3:%PATH%"
+                bat 'mvn -version'
+                bat 'mvn clean compile'
         }
         }
 
         stage ('build') {
             steps{
-                bat ' cd Devops1 mvn install'
+                bat 'mvn install'
         }
         post{
             success{
