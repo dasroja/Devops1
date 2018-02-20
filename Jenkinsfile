@@ -16,7 +16,7 @@ pipeline {
 
         stage ('build') {
             steps{
-                bat 'mvn install'
+                bat ' cd Devops1 mvn install'
         }
         post{
             success{
