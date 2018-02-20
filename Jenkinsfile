@@ -1,15 +1,31 @@
 pipeline {
-    agent any
-
+    agent {
+      label "Windows"
+    }
+    tools{
+        maven 'maven-3.3'
+        jdk 'java-1.8'
+    }
     stages {
-        stage ('Compile Stage') {         
+        stage ('Initialize') {  
+            steps{
+                bat '''
+                echo "PATH = %PATH%"
+                echo "M2_HOME= %M2_HOME%"
+                '''
+        }
         }
 
-        stage ('Testing Stage') {
+        stage ('build') {
+            steps{
+                bat 'mvn install'
         }
-        stage ('Deployment Stage') {
+        post{
+            success{
+                junit"Devops1/target/surefire-reports/*.xml"
                 
             }
-        
-   
+        }
+      }
+    }      
 }
